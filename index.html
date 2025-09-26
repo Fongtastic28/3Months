@@ -297,7 +297,7 @@
 
     // ---- Audio via WebAudio (with graceful fallback) ----
     let actx, masterGain, whistleBuf=null, blastBuf=null, whistleGain=null, blastGain=null;
-    function ensureAudio(){ if(!actx){ actx=new (window.AudioContext||window.webkitAudioContext)(); masterGain=actx.createGain(); masterGain.gain.value = 0.12; masterGain.connect(actx.destination); whistleGain=actx.createGain(); whistleGain.gain.value = 0.10; whistleGain.connect(masterGain); blastGain=actx.createGain(); blastGain.gain.value = 0.07; blastGain.connect(masterGain);} }
+    function ensureAudio(){ if(!actx){ actx=new (window.AudioContext||window.webkitAudioContext)(); masterGain=actx.createGain(); masterGain.gain.value = 0.24; masterGain.connect(actx.destination); whistleGain=actx.createGain(); whistleGain.gain.value = 0.10; whistleGain.connect(masterGain); blastGain=actx.createGain(); blastGain.gain.value = 0.07; blastGain.connect(masterGain);} }
     async function decode(url){ const res = await fetch(url); const buf = await res.arrayBuffer(); return await actx.decodeAudioData(buf); }
     async function loadSfx(){ try{ if(!whistleBuf) whistleBuf = await decode('fireworks-whistlewav-14541.mp3'); if(!blastBuf) blastBuf = await decode('fireworkblast-106275.mp3'); }catch(e){ console.warn('SFX decode failed; will fallback', e); } }
     function playWhistle(){ if(whistleBuf&&actx){ const s=actx.createBufferSource(); s.buffer=whistleBuf; s.playbackRate.value=1+Math.random()*0.1; s.connect(whistleGain); s.start(); return;} const el=document.getElementById('whistleSfx'); if(el){ const c=el.cloneNode(true); c.volume=0.2; c.playbackRate=1+Math.random()*0.1; c.play().catch(()=>{});} }
