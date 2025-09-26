@@ -91,7 +91,7 @@
         <path fill="url(#hg)" d="M50 86 L12 48 A22 22 0 1 1 50 20 A22 22 0 1 1 88 48 Z"/>
       </svg>
       <h1>Happy 3 Months 纹纹!!!</h1>
-      <p class="sub">Let’s keep growing ❤️❤️❤️</p>
+      <p class="sub">Let’s keep growing together❤️❤️❤️</p>
     </div>
   </main>
 
@@ -106,8 +106,8 @@
   <!-- Start gate to enable audio -->
   <div class="gate" id="gate" role="dialog" aria-modal="true">
     <div class="gate-card">
-      <h2 style="margin:.4rem 0 .25rem">Tap to start the magic ✨</h2>
-      <p style="opacity:.9; margin:0 .25rem 0">Make sure your volume is on. You can always mute later if you like.</p>
+      <h2 style="margin:.4rem 0 .25rem">Press Start To See My Love hehehe ✨</h2>
+      <p style="opacity:.9; margin:0 .25rem 0">Make sure your volume is on babyyyyyyy.</p>
       <button class="btn" id="go" type="button" onclick="try{document.getElementById('gate').style.display='none';}catch(e){}; if(window.handleStart){handleStart(event);} return false;">Start</button>
     </div>
   </div>
@@ -379,17 +379,17 @@
   function ensureAudio(){
     if(!actx){
       actx = new (window.AudioContext||window.webkitAudioContext)();
-      masterGain = actx.createGain(); masterGain.gain.value = 0.12; masterGain.connect(actx.destination);
-      whistleGain = actx.createGain(); whistleGain.gain.value = 0.05; whistleGain.connect(masterGain);
-      blastGain   = actx.createGain(); blastGain.gain.value   = 0.035; blastGain.connect(masterGain);
+      masterGain = actx.createGain(); masterGain.gain.value = 0.5; masterGain.connect(actx.destination);
+      whistleGain = actx.createGain(); whistleGain.gain.value = 0.1; whistleGain.connect(masterGain);
+      blastGain   = actx.createGain(); blastGain.gain.value   = 0.1; blastGain.connect(masterGain);
     }
   }
   async function decode(url){ const res=await fetch(url); const buf=await res.arrayBuffer(); return await actx.decodeAudioData(buf); }
   async function loadSfx(){ try{ if(!whistleBuf) whistleBuf = await decode('fireworks-whistlewav-14541.mp3'); if(!blastBuf) blastBuf = await decode('fireworkblast-106275.mp3'); }catch(e){ console.warn(e); } }
   function playWhistle(){ if(whistleBuf&&actx){ const s=actx.createBufferSource(); s.buffer=whistleBuf; s.playbackRate.value=1+Math.random()*0.1; s.connect(whistleGain); s.start(); return; }
-    const el=document.getElementById('whistleSfx'); if(!el) return; const c=el.cloneNode(true); c.volume=0.06; c.playbackRate=1+Math.random()*0.1; c.play().catch(()=>{}); }
+    const el=document.getElementById('whistleSfx'); if(!el) return; const c=el.cloneNode(true); c.volume=0.1; c.playbackRate=1+Math.random()*0.1; c.play().catch(()=>{}); }
   function playBlast(){ if(blastBuf&&actx){ const s=actx.createBufferSource(); s.buffer=blastBuf; s.playbackRate.value=0.95; s.connect(blastGain); s.start(); return; }
-    const el=document.getElementById('blastSfx'); if(!el) return; const c=el.cloneNode(true); c.volume=0.04; c.playbackRate=0.95; c.play().catch(()=>{}); }
+    const el=document.getElementById('blastSfx'); if(!el) return; const c=el.cloneNode(true); c.volume=0.1; c.playbackRate=0.95; c.play().catch(()=>{}); }
 
   async function start(){
     if (gate) gate.style.display='none';
